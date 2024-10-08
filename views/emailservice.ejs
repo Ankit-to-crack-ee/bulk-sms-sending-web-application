@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Service</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff0000, #0000ff, #000000);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+        }
+        nav {
+            background: linear-gradient(135deg, #ff0000, #0000ff, #000000);
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li {
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: rgb(213, 178, 61);
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(8, 8, 8, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        form label {
+            font-weight: bold;
+            color: #e0ebf4;
+        }
+        form input[type="text"], form input[type="email"], form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #e0ebf4;
+            color: #b08d17;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        form input[type="text"]:focus, form input[type="email"]:focus, form textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+        form button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        form button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <img src="https://th.bing.com/th/id/OIP.3LbXCBAoecUT4vX8mw8_4QHaHa?w=900&h=900&rs=1&pid=ImgDetMain" alt="Logo"> E-Mail Services
+        </a>
+        <ul class="navbar-nav ml-auto">
+            <% if (user) { %>
+                <li class="nav-item">
+                    <span class="nav-link">Welcome, <%= user.username %>!</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+            <% } %>
+            <li class="nav-item">
+                <a class="nav-link" href="/bulk-messages">Bulk Message</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Email Sending Application</h1>
+        <form action="/send-email" method="POST" id="emailForm">
+            <div class="form-group">
+                <label for="to">To:</label>
+                <input type="email" id="to" name="to" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Email</button>
+        </form>
+        <div id="result" class="mt-4"></div> <!-- Display result here -->
+    </div>
+</body>
+</html>
